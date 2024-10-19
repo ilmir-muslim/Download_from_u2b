@@ -1,3 +1,5 @@
 .venv/
 .idea/
 __pycache__/
+setup.py
+coffee_youtube_48764.ico
