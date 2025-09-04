@@ -1,5 +1,8 @@
-.venv/
+venv/
 .idea/
 __pycache__/
 setup.py
 coffee_youtube_48764.ico
+downloads/
+.part
+main_log.txt

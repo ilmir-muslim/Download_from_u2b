@@ -62,7 +62,9 @@ def download(link, choice, name='%(title)s'):
     return downloaded_file_path
 
 if __name__ == "__main__":
-    # Ввод данных от пользователя
+    # Создаём папку для загрузок, если её нет
+    os.makedirs("downloads", exist_ok=True)
+
     print("Выберите действие:")
     print("1. Скачивание видео и аудио")
     print("2. Скачивание только аудио")
@@ -72,13 +74,20 @@ if __name__ == "__main__":
 
     choice = input("Введите ваш выбор (1, 2, 3, 4 или 5): ")
 
-    if choice == '5':
-        # Объединение аудио и видео из текущей директории
+    if choice == "5":
+        # Объединение аудио и видео
         base_name = input("Введите базовое имя файла (без расширения): ")
         merge_audio_video(base_name)
 
     else:
-        # Скачивание видео или аудио
-        url = input("Введите ссылку на видео YouTube: ")
-        name = input("Введите имя файла (оставьте пустым для использования названия видео): ")
-        download(url, choice, name or '%(title)s')
+        # Скачивание одного или нескольких видео
+        urls = input(
+            "Введите ссылку на видео YouTube, либо введите несколько ссылок через запятую: "
+        )
+        urls = [
+            u.strip() for u in urls.split(",") if u.strip()
+        ]  # убираем пробелы и пустые строки
+
+        for i, url in enumerate(urls, start=1):
+            print(f"\n=== Загружается {i}-е видео из {len(urls)} ===")
+            download(url, choice, name="downloads/%(title)s [%(id)s]")
